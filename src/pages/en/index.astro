@@ -4,8 +4,9 @@ import Hero from '@components/Hero.astro';
 import Section from '@components/Section.astro';
 import InstructorCard from '@components/InstructorCard.astro';
 import ScheduleTable from '@components/ScheduleTable.astro';
+import ScrollReveal from '@components/ScrollReveal.astro';
 import Button from '@components/Button.astro';
-import { useTranslations } from '@i18n/utils';
+import { useTranslations, getLocalizedPath } from '@i18n/utils';
 import type { ScheduleEntry } from '@components/ScheduleTable.astro';
 
 const lang = 'en';
@@ -28,44 +29,69 @@ const schedule: ScheduleEntry[] = [
     title={t('hero.title')}
     subtitle={t('hero.subtitle')}
     ctaText={t('hero.cta')}
-    ctaHref={`/${lang}/contact/`}
+    ctaHref={getLocalizedPath(lang, '/contact/')}
   />
 
-  <Section title={t('about.title')} id="about">
-    <p class="text-center">{t('about.description')}</p>
+  <Section id="about">
+    <ScrollReveal>
+      <h2 class="section-title">{t('about.title')}</h2>
+    </ScrollReveal>
+    <ScrollReveal delay={200}>
+      <p class="text-center">{t('about.description')}</p>
+    </ScrollReveal>
   </Section>
 
-  <Section title={t('instructors.title')} id="instructors" background="surface">
+  <Section id="instructors" background="surface">
+    <ScrollReveal>
+      <h2 class="section-title">{t('instructors.title')}</h2>
+    </ScrollReveal>
     <div class="instructors-grid">
-      <InstructorCard
-        name={t('instructor1.name')}
-        role={t('instructor1.role')}
-        bio={t('instructor1.bio')}
-        specialties={t('instructor1.specialties').split(',')}
-      />
-      <InstructorCard
-        name={t('instructor2.name')}
-        role={t('instructor2.role')}
-        bio={t('instructor2.bio')}
-        specialties={t('instructor2.specialties').split(',')}
-      />
+      <ScrollReveal animation="fade-up" delay={200}>
+        <InstructorCard
+          name={t('instructor1.name')}
+          role={t('instructor1.role')}
+          bio={t('instructor1.bio')}
+          specialties={t('instructor1.specialties').split(',')}
+        />
+      </ScrollReveal>
+      <ScrollReveal animation="fade-up" delay={400}>
+        <InstructorCard
+          name={t('instructor2.name')}
+          role={t('instructor2.role')}
+          bio={t('instructor2.bio')}
+          specialties={t('instructor2.specialties').split(',')}
+        />
+      </ScrollReveal>
     </div>
   </Section>
 
-  <Section title={t('schedule.title')} id="schedule">
-    <ScheduleTable schedule={schedule} lang={lang} />
+  <Section id="schedule">
+    <ScrollReveal>
+      <h2 class="section-title">{t('schedule.title')}</h2>
+    </ScrollReveal>
+    <ScrollReveal animation="fade-up" delay={200}>
+      <ScheduleTable schedule={schedule} lang={lang} />
+    </ScrollReveal>
   </Section>
 
   <Section background="surface">
-    <div class="cta-section text-center">
-      <h2>{t('contact.title')}</h2>
-      <p class="text-muted">{t('contact.subtitle')}</p>
-      <Button href={`/${lang}/contact/`} size="lg">{t('hero.cta')}</Button>
-    </div>
+    <ScrollReveal animation="scale-in">
+      <div class="cta-section text-center">
+        <h2>{t('contact.title')}</h2>
+        <p class="text-muted">{t('contact.subtitle')}</p>
+        <Button href={getLocalizedPath(lang, '/contact/')} size="lg">{t('hero.cta')}</Button>
+      </div>
+    </ScrollReveal>
   </Section>
 </BaseLayout>
 
 <style>
+  .section-title {
+    text-align: center;
+    margin-bottom: var(--space-xl);
+    color: var(--color-primary);
+  }
+
   .instructors-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

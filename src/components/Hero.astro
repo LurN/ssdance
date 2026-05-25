@@ -15,7 +15,9 @@ import Button from './Button.astro';
     <div class="hero__content">
       <h1 class="hero__title">{title}</h1>
       <p class="hero__subtitle">{subtitle}</p>
-      <Button href={ctaHref} size="lg">{ctaText}</Button>
+      <div class="hero__cta">
+        <Button href={ctaHref} size="lg">{ctaText}</Button>
+      </div>
     </div>
   </div>
 </section>
@@ -30,6 +32,7 @@ import Button from './Button.astro';
     background-image: var(--bg-image);
     background-size: cover;
     background-position: center;
+    overflow: hidden;
   }
 
   .hero__overlay {
@@ -38,8 +41,20 @@ import Button from './Button.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--color-hero-overlay);
+    background: linear-gradient(
+      135deg,
+      var(--color-hero-overlay) 0%,
+      var(--color-hero-overlay) 50%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
     padding: var(--space-xl) var(--space-md);
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
   }
 
   .hero__content {
@@ -51,13 +66,36 @@ import Button from './Button.astro';
     color: var(--color-text-inverse);
     font-size: var(--font-size-3xl);
     margin-bottom: var(--space-md);
+    animation: hero-fade-in 1s ease both;
   }
 
   .hero__subtitle {
     color: var(--color-text-inverse);
     font-size: var(--font-size-xl);
-    opacity: 0.9;
+    opacity: 0;
     margin-bottom: var(--space-lg);
+    animation: hero-fade-in 1s ease 0.3s both;
+  }
+
+  .hero__cta {
+    opacity: 0;
+    animation: hero-fade-in 1s ease 0.6s both;
+  }
+
+  @keyframes hero-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* override the 0.9 opacity from the non-animated version */
+  .hero__subtitle {
+    animation-fill-mode: both;
   }
 
   @media (min-width: 768px) {

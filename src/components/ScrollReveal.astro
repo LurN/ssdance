@@ -1,0 +1,66 @@
+---
+interface Props {
+  animation?: 'fade-up' | 'fade-in' | 'fade-left' | 'fade-right' | 'scale-in';
+  delay?: number;
+  duration?: number;
+}
+
+const { animation = 'fade-up', delay = 0, duration = 600 } = Astro.props;
+---
+<div
+  class:list={['reveal', `reveal--${animation}`]}
+  style={`--reveal-delay: ${delay}ms; --reveal-duration: ${duration}ms`}
+>
+  <slot />
+</div>
+
+<style>
+  .reveal {
+    opacity: 0;
+    transition:
+      opacity var(--reveal-duration) ease var(--reveal-delay),
+      transform var(--reveal-duration) ease var(--reveal-delay);
+    will-change: opacity, transform;
+  }
+
+  .reveal.in-view {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal--fade-up {
+    transform: translateY(40px);
+  }
+
+  .reveal--fade-in {
+    transform: none;
+  }
+
+  .reveal--fade-left {
+    transform: translateX(-40px);
+  }
+
+  .reveal--fade-right {
+    transform: translateX(40px);
+  }
+
+  .reveal--scale-in {
+    transform: scale(0.9);
+  }
+</style>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+</script>

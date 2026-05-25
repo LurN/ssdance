@@ -3,7 +3,8 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://ssdance.com',
+  site: 'https://lurn.github.io',
+  base: '/ssdance',
   output: 'static',
   integrations: [sitemap()],
   i18n: {

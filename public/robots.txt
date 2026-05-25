@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://ssdance.com/sitemap-index.xml
+Sitemap: https://lurn.github.io/ssdance/sitemap-index.xml
