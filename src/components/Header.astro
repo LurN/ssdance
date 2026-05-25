@@ -42,6 +42,13 @@ const t = useTranslations(lang);
     hamburger.classList.toggle('open', open);
     hamburger.setAttribute('aria-expanded', String(open));
   });
+  nav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    });
+  });
 </script>
 
 <style>

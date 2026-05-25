@@ -1,0 +1,36 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const redirectUrl = `${base}/zh/`;
+---
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>页面未找到 | SS Dance</title>
+  <meta http-equiv="refresh" content={`3;url=${redirectUrl}`} />
+  <style>
+    body {
+      font-family: 'Noto Sans SC', system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background: #1a1a2e;
+      color: #fff;
+      text-align: center;
+    }
+    a { color: #e94560; }
+    p { margin: 0.5rem 0; }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>404</h1>
+    <p>页面未找到 / Page not found</p>
+    <p>正在跳转至首页... / Redirecting to home...</p>
+    <p><a href={redirectUrl}>点击这里 / Click here</a></p>
+  </div>
+</body>
+</html>
