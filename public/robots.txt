@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ssdance.com/sitemap-index.xml

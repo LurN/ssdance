@@ -1,0 +1,34 @@
+---
+interface Props {
+  elevated?: boolean;
+  padding?: 'sm' | 'md' | 'lg';
+}
+
+const { elevated = false, padding = 'md' } = Astro.props;
+---
+<div class:list={['card', `card--pad-${padding}`, { 'card--elevated': elevated }]}>
+  <slot />
+</div>
+
+<style>
+  .card {
+    background-color: var(--color-surface);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--color-border);
+    transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+  }
+
+  .card--elevated {
+    box-shadow: var(--shadow-md);
+    border: none;
+  }
+
+  .card--elevated:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+
+  .card--pad-sm { padding: var(--space-md); }
+  .card--pad-md { padding: var(--space-lg); }
+  .card--pad-lg { padding: var(--space-xl); }
+</style>

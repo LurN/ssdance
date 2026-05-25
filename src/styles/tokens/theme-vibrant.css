@@ -1,0 +1,13 @@
+html[data-theme="vibrant"] {
+  --color-primary: #6c2bd9;
+  --color-primary-light: #8b5cf6;
+  --color-secondary: #f43f5e;
+  --color-accent: #06b6d4;
+  --color-background: #ffffff;
+  --color-surface: #faf5ff;
+  --color-text: #1e1b4b;
+  --color-text-muted: #64748b;
+  --color-text-inverse: #ffffff;
+  --color-border: #e2e8f0;
+  --color-hero-overlay: rgba(108, 43, 217, 0.7);
+}

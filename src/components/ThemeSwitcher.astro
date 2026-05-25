@@ -1,0 +1,55 @@
+---
+const themes = ['elegant', 'vibrant', 'warm'] as const;
+---
+<div class="theme-switcher">
+  {themes.map((theme) => (
+    <button class="theme-btn" data-theme-btn={theme}>
+      {theme}
+    </button>
+  ))}
+</div>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-theme-btn]');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const theme = btn.dataset.themeBtn!;
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      buttons.forEach((b) => b.classList.toggle('active', b === btn));
+    });
+  });
+
+  const saved = localStorage.getItem('theme') || 'elegant';
+  document.documentElement.setAttribute('data-theme', saved);
+  buttons.forEach((b) => b.classList.toggle('active', b.dataset.themeBtn === saved));
+</script>
+
+<style>
+  .theme-switcher {
+    display: flex;
+    gap: var(--space-xs);
+  }
+
+  .theme-btn {
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    background: var(--color-background);
+    text-transform: capitalize;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .theme-btn:hover {
+    border-color: var(--color-secondary);
+    color: var(--color-text);
+  }
+
+  .theme-btn.active {
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+    font-weight: var(--font-weight-medium);
+  }
+</style>

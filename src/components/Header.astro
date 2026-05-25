@@ -1,0 +1,151 @@
+---
+import LanguageToggle from './LanguageToggle.astro';
+import ThemeSwitcher from './ThemeSwitcher.astro';
+import { useTranslations } from '@i18n/utils';
+import { getLocalizedPath } from '@i18n/utils';
+import type { Lang } from '@i18n/languages';
+
+interface Props {
+  lang: Lang;
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+const t = useTranslations(lang);
+---
+<header class="header">
+  <div class="header__container">
+    <a href={getLocalizedPath(lang, '/')} class="header__logo">SS Dance</a>
+    <button class="header__hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="header__nav">
+      <a href={getLocalizedPath(lang, '/')} class:list={['header__link', { active: currentPath === '/' }]}>
+        {t('nav.home')}
+      </a>
+      <a href={getLocalizedPath(lang, '/contact/')} class:list={['header__link', { active: currentPath === '/contact/' }]}>
+        {t('nav.contact')}
+      </a>
+      <ThemeSwitcher />
+      <LanguageToggle lang={lang} currentPath={currentPath} />
+    </nav>
+  </div>
+</header>
+
+<script>
+  const hamburger = document.querySelector('.header__hamburger')!;
+  const nav = document.querySelector('.header__nav')!;
+  hamburger.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', String(open));
+  });
+</script>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--color-background);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(8px);
+  }
+
+  .header__container {
+    max-width: var(--max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-md);
+    height: var(--header-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .header__logo {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .header__hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    z-index: 200;
+  }
+
+  .header__hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-text);
+    transition: transform var(--transition-normal), opacity var(--transition-normal);
+  }
+
+  .header__hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .header__hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .header__hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+  }
+
+  .header__link {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    transition: color var(--transition-fast);
+  }
+
+  .header__link:hover,
+  .header__link.active {
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 768px) {
+    .header__hamburger {
+      display: flex;
+    }
+
+    .header__nav {
+      display: none;
+      position: absolute;
+      top: var(--header-height);
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+      background-color: var(--color-background);
+      border-bottom: 1px solid var(--color-border);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .header__nav.open {
+      display: flex;
+    }
+
+    .header__link {
+      font-size: var(--font-size-lg);
+    }
+  }
+</style>

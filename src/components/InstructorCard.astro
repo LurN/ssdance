@@ -1,0 +1,97 @@
+---
+import Card from './Card.astro';
+
+interface Props {
+  name: string;
+  role: string;
+  bio: string;
+  image?: string;
+  specialties: string[];
+}
+
+const { name, role, bio, image, specialties } = Astro.props;
+---
+<Card elevated padding="lg">
+  <div class="instructor">
+    <div class="instructor__image-wrapper">
+      {image ? (
+        <img src={image} alt={name} class="instructor__image" />
+      ) : (
+        <div class="instructor__image-placeholder" aria-hidden="true"></div>
+      )}
+    </div>
+    <div class="instructor__info">
+      <h3 class="instructor__name">{name}</h3>
+      <p class="instructor__role">{role}</p>
+      <p class="instructor__bio">{bio}</p>
+      <div class="instructor__specialties">
+        {specialties.map((s) => (
+          <span class="instructor__tag">{s}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+</Card>
+
+<style>
+  .instructor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-lg);
+  }
+
+  .instructor__image-wrapper {
+    width: 150px;
+    height: 150px;
+    border-radius: var(--border-radius-full);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .instructor__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .instructor__image-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-border);
+  }
+
+  .instructor__name {
+    color: var(--color-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .instructor__role {
+    color: var(--color-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--space-sm);
+  }
+
+  .instructor__bio {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+  }
+
+  .instructor__specialties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    justify-content: center;
+  }
+
+  .instructor__tag {
+    background-color: var(--color-background);
+    color: var(--color-primary);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-sm);
+    border: 1px solid var(--color-border);
+  }
+</style>

@@ -1,0 +1,81 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import InstructorCard from '@components/InstructorCard.astro';
+import ScheduleTable from '@components/ScheduleTable.astro';
+import Button from '@components/Button.astro';
+import { useTranslations } from '@i18n/utils';
+import type { ScheduleEntry } from '@components/ScheduleTable.astro';
+
+const lang = 'zh';
+const t = useTranslations(lang);
+
+const schedule: ScheduleEntry[] = [
+  { day: '周一', time: '19:00 - 20:30', className: '民族舞', instructor: t('instructor1.name') },
+  { day: '周三', time: '19:00 - 20:30', className: '拉丁舞', instructor: t('instructor2.name') },
+  { day: '周五', time: '19:00 - 20:30', className: '现代舞', instructor: t('instructor1.name') },
+  { day: '周六', time: '10:00 - 11:30', className: '爵士舞', instructor: t('instructor2.name') },
+];
+---
+<BaseLayout
+  title={t('seo.home.title')}
+  description={t('seo.home.description')}
+  lang={lang}
+  currentPath="/"
+>
+  <Hero
+    title={t('hero.title')}
+    subtitle={t('hero.subtitle')}
+    ctaText={t('hero.cta')}
+    ctaHref={`/${lang}/contact/`}
+  />
+
+  <Section title={t('about.title')} id="about">
+    <p class="text-center">{t('about.description')}</p>
+  </Section>
+
+  <Section title={t('instructors.title')} id="instructors" background="surface">
+    <div class="instructors-grid">
+      <InstructorCard
+        name={t('instructor1.name')}
+        role={t('instructor1.role')}
+        bio={t('instructor1.bio')}
+        specialties={t('instructor1.specialties').split(',')}
+      />
+      <InstructorCard
+        name={t('instructor2.name')}
+        role={t('instructor2.role')}
+        bio={t('instructor2.bio')}
+        specialties={t('instructor2.specialties').split(',')}
+      />
+    </div>
+  </Section>
+
+  <Section title={t('schedule.title')} id="schedule">
+    <ScheduleTable schedule={schedule} lang={lang} />
+  </Section>
+
+  <Section background="surface">
+    <div class="cta-section text-center">
+      <h2>{t('contact.title')}</h2>
+      <p class="text-muted">{t('contact.subtitle')}</p>
+      <Button href={`/${lang}/contact/`} size="lg">{t('hero.cta')}</Button>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .instructors-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .cta-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+  }
+</style>

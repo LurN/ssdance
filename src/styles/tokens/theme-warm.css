@@ -1,0 +1,13 @@
+html[data-theme="warm"] {
+  --color-primary: #92400e;
+  --color-primary-light: #b45309;
+  --color-secondary: #dc2626;
+  --color-accent: #d97706;
+  --color-background: #fffbeb;
+  --color-surface: #fef3c7;
+  --color-text: #451a03;
+  --color-text-muted: #78716c;
+  --color-text-inverse: #ffffff;
+  --color-border: #e7e5e4;
+  --color-hero-overlay: rgba(146, 64, 14, 0.7);
+}

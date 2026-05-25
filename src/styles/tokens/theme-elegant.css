@@ -1,0 +1,13 @@
+html[data-theme="elegant"] {
+  --color-primary: #1a1a2e;
+  --color-primary-light: #16213e;
+  --color-secondary: #e94560;
+  --color-accent: #f5c518;
+  --color-background: #ffffff;
+  --color-surface: #f8f9fa;
+  --color-text: #1a1a2e;
+  --color-text-muted: #6c757d;
+  --color-text-inverse: #ffffff;
+  --color-border: #dee2e6;
+  --color-hero-overlay: rgba(26, 26, 46, 0.7);
+}

@@ -1,0 +1,47 @@
+---
+import '@styles/tokens/base.css';
+import '@styles/tokens/theme-elegant.css';
+import '@styles/tokens/theme-vibrant.css';
+import '@styles/tokens/theme-warm.css';
+import '@styles/global.css';
+import '@styles/utilities.css';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import SEOHead from '@components/SEOHead.astro';
+import type { Lang } from '@i18n/languages';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  currentPath: string;
+  ogImage?: string;
+}
+
+const { title, description, lang, currentPath, ogImage } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang={lang} data-theme="elegant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet" />
+  <SEOHead
+    title={title}
+    description={description}
+    lang={lang}
+    currentPath={currentPath}
+    ogImage={ogImage}
+  />
+</head>
+<body>
+  <Header lang={lang} currentPath={currentPath} />
+  <main>
+    <slot />
+  </main>
+  <Footer lang={lang} />
+</body>
+</html>

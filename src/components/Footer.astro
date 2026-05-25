@@ -1,0 +1,42 @@
+---
+import { useTranslations } from '@i18n/utils';
+import type { Lang } from '@i18n/languages';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+<footer class="footer">
+  <div class="footer__container">
+    <p class="footer__tagline">{t('footer.tagline')}</p>
+    <p class="footer__copyright">{t('footer.copyright')}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--color-primary);
+    color: var(--color-text-inverse);
+    padding: var(--space-xl) 0;
+    text-align: center;
+  }
+
+  .footer__container {
+    max-width: var(--max-width);
+    margin-inline: auto;
+    padding-inline: var(--space-md);
+  }
+
+  .footer__tagline {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .footer__copyright {
+    font-size: var(--font-size-sm);
+    opacity: 0.8;
+  }
+</style>

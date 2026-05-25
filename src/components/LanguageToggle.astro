@@ -1,0 +1,35 @@
+---
+import { languages, type Lang } from '@i18n/languages';
+import { getAlternateLang, getLocalizedPath } from '@i18n/utils';
+
+interface Props {
+  lang: Lang;
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+const altLang = getAlternateLang(lang);
+const altPath = getLocalizedPath(altLang, currentPath);
+---
+<a href={altPath} class="lang-toggle" aria-label={`Switch to ${languages[altLang]}`}>
+  {languages[altLang]}
+</a>
+
+<style>
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-xs) var(--space-sm);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+  }
+
+  .lang-toggle:hover {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+  }
+</style>

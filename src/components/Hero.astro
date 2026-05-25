@@ -1,0 +1,68 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  ctaHref: string;
+  backgroundImage?: string;
+}
+
+const { title, subtitle, ctaText, ctaHref, backgroundImage } = Astro.props;
+import Button from './Button.astro';
+---
+<section class="hero" style={backgroundImage ? `--bg-image: url(${backgroundImage})` : undefined}>
+  <div class="hero__overlay">
+    <div class="hero__content">
+      <h1 class="hero__title">{title}</h1>
+      <p class="hero__subtitle">{subtitle}</p>
+      <Button href={ctaHref} size="lg">{ctaText}</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary);
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+  }
+
+  .hero__overlay {
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-hero-overlay);
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .hero__content {
+    text-align: center;
+    max-width: 700px;
+  }
+
+  .hero__title {
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .hero__subtitle {
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-xl);
+    opacity: 0.9;
+    margin-bottom: var(--space-lg);
+  }
+
+  @media (min-width: 768px) {
+    .hero__title {
+      font-size: clamp(var(--font-size-3xl), 5vw, 4rem);
+    }
+  }
+</style>
